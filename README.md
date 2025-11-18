@@ -171,19 +171,6 @@ poly-market-sdk/
 └── main.go          # Example code
 ```
 
-## Development
-
-```bash
-# Run examples
-go run main.go
-
-# Run tests
-go test ./...
-
-# Build
-go build
-```
-
 ## Notes
 
 - Current SDK is designed based on Polymarket's public API
