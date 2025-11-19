@@ -33,17 +33,17 @@ func (e *EventsAPI) ListEvents(params *models.ListEventsParams) ([]models.Event,
 	// Build query parameters
 	queryValues := url.Values{}
 	if params != nil {
-		if params.Limit != nil {
-			queryValues.Set("limit", strconv.Itoa(*params.Limit))
+		if params.Limit != 0 {
+			queryValues.Set("limit", strconv.Itoa(params.Limit))
 		}
-		if params.Offset != nil {
-			queryValues.Set("offset", strconv.Itoa(*params.Offset))
+		if params.Offset != 0 {
+			queryValues.Set("offset", strconv.Itoa(params.Offset))
 		}
-		if params.Order != nil {
-			queryValues.Set("order", *params.Order)
+		if params.Order != "" {
+			queryValues.Set("order", params.Order)
 		}
-		if params.Ascending != nil {
-			queryValues.Set("ascending", strconv.FormatBool(*params.Ascending))
+		if params.Ascending {
+			queryValues.Set("ascending", strconv.FormatBool(params.Ascending))
 		}
 		if len(params.ID) > 0 {
 			for _, id := range params.ID {
@@ -55,34 +55,31 @@ func (e *EventsAPI) ListEvents(params *models.ListEventsParams) ([]models.Event,
 				queryValues.Add("slug", slug)
 			}
 		}
-		if params.TagID != nil {
-			queryValues.Set("tag_id", strconv.Itoa(*params.TagID))
+		if params.TagID != 0 {
+			queryValues.Set("tag_id", strconv.Itoa(params.TagID))
 		}
 		if len(params.ExcludeTagID) > 0 {
 			for _, tagID := range params.ExcludeTagID {
 				queryValues.Add("exclude_tag_id", strconv.Itoa(tagID))
 			}
 		}
-		if params.RelatedTags != nil {
-			queryValues.Set("related_tags", strconv.FormatBool(*params.RelatedTags))
+		if params.RelatedTags {
+			queryValues.Set("related_tags", strconv.FormatBool(params.RelatedTags))
 		}
-		if params.Featured != nil {
-			queryValues.Set("featured", strconv.FormatBool(*params.Featured))
+		if params.Featured {
+			queryValues.Set("featured", strconv.FormatBool(params.Featured))
 		}
-		if params.CYOM != nil {
-			queryValues.Set("cyom", strconv.FormatBool(*params.CYOM))
+		if params.CYOM {
+			queryValues.Set("cyom", strconv.FormatBool(params.CYOM))
 		}
-		if params.IncludeChat != nil {
-			queryValues.Set("include_chat", strconv.FormatBool(*params.IncludeChat))
+		if params.IncludeChat {
+			queryValues.Set("include_chat", strconv.FormatBool(params.IncludeChat))
 		}
-		if params.IncludeTemplate != nil {
-			queryValues.Set("include_template", strconv.FormatBool(*params.IncludeTemplate))
+		if params.IncludeTemplate {
+			queryValues.Set("include_template", strconv.FormatBool(params.IncludeTemplate))
 		}
-		if params.Recurrence != nil {
-			queryValues.Set("recurrence", *params.Recurrence)
-		}
-		if params.Closed != nil {
-			queryValues.Set("closed", strconv.FormatBool(*params.Closed))
+		if params.Closed {
+			queryValues.Set("closed", strconv.FormatBool(params.Closed))
 		}
 		if params.StartDateMin != nil {
 			queryValues.Set("start_date_min", params.StartDateMin.Format(time.RFC3339))

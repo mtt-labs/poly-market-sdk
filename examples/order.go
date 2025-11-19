@@ -12,7 +12,7 @@ import (
 
 func main() {
 	// Get private key from environment variable (please keep private key secure in actual use)
-	privateKey := "" //#This is your Private Key. Export from https://reveal.magic.link/polymarket or from your Web3 Extension
+	privateKey := "b418828d5e0ac24d2b9ef418aad29b74ecfef9cb2b56d4ccfe79109b5742f7f5" //#This is your Private Key. Export from https://reveal.magic.link/polymarket or from your Web3 Extension
 	if privateKey == "" {
 		log.Fatal("Please set POLYMARKET_PRIVATE_KEY environment variable")
 	}
@@ -21,9 +21,9 @@ func main() {
 	// Reference: https://docs.polymarket.com/quickstart/orders/first-order
 	config := &client.Config{
 		PrivateKey:    privateKey,
-		ChainID:       137,                            // Polygon mainnet
-		SignatureType: client.SignatureTypeEmailMagic, // 0=EOA, 1=Email/Magic, 2=Browser Wallet
-		Funder:        "",                             // This is the address listed below your profile picture when using the Polymarket site.
+		ChainID:       137,                                          // Polygon mainnet
+		SignatureType: client.SignatureTypeEmailMagic,               // 0=EOA, 1=Email/Magic, 2=Browser Wallet
+		Funder:        "0x47D348AD8bEB6F1259F5326859e9F185C28B0348", // This is the address listed below your profile picture when using the Polymarket site.
 		// Funder: "0x...", // If using Proxy, set this address
 	}
 
@@ -70,11 +70,17 @@ func main() {
 
 	// fmt.Println("SDK initialized successfully!")
 	searchResp, err := sdk.Search.Search(&models.SearchParams{
-		Q: "lol-t1-kt",
+		Q: "What price will Bitcoin hit in 2025",
 	})
 	if err != nil {
 		log.Printf("Failed to search: %v", err)
 		return
 	}
 	fmt.Println(searchResp)
+
+	event, err := sdk.Events.GetEventByID("16096")
+	if err != nil {
+		return
+	}
+	fmt.Println(event)
 }
